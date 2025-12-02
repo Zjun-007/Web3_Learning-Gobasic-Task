@@ -1,25 +1,64 @@
-package main	
+// 删除有序数组中的重复项
+// 提示
+// 给你一个 非严格递增排列 的数组 nums ，请你 原地 删除重复出现的元素，使每个元素 只出现一次 ，
+// 返回删除后数组的新长度。元素的 相对顺序 应该保持 一致 。然后返回 nums 中唯一元素的个数。
+
+// 考虑 nums 的唯一元素的数量为 k。去重后，返回唯一元素的数量 k。
+
+// nums 的前 k 个元素应包含 排序后 的唯一数字。下标 k - 1 之后的剩余元素可以忽略。
+
+
+// 示例：
+// 输入：nums = [0,0,1,1,1,2,2,3,3,4]
+// 输出：5, nums = [0,1,2,3,4,_,_,_,_,_]
+// 解释：函数应该返回新的长度 5 ， 并且原数组 nums 的前五个元素被修改为 0, 1, 2, 3, 4 。
+// 不需要考虑数组中超出新长度后面的元素。
+
+package main
+
 import "fmt"
 
-func func1(a int, b int) (int, int) {
- 	 return a, b
-	}
+
+func removeDuplicates(nums []int) int {
+    if len(nums) == 0 {
+        return 0
+    }
+    
+    // 使用双指针法
+    // i 指向当前不重复元素的位置
+    i := 0
+    
+    // j 遍历整个数组
+    for j := 1; j < len(nums); j++ {
+        // 如果当前元素与 i 指向的元素不同
+        if nums[j] != nums[i] {
+            // 将不重复元素移到 i+1 位置
+            i++
+            nums[i] = nums[j]
+        }
+        // 如果相同，j 继续向后移动，i 不动
+    }
+    
+    // 返回不重复元素的数量（i 是下标，需要加1）
+    return i + 1
+}
 
 func main() {
-    s1 := []int{5, 4, 3, 2, 1}	
-    // 下标访问切片
-	fmt.Println(s1)
-    // _ := s1[0]
-    // _ := s1[1]		
-	// _ := s1[2]
-	//fmt.Println("e1 = ", e1, "; e2 = ", e2, "; e3 = ", e3)
-
-	// 使用range遍历切片
-	for i, v := range s1 {
-		fmt.Println("index = ", i, "value = ", v)
-	}
-
-
-
-	fmt.Println(func1(3,6))
+    // 测试用例
+	// [][]int 表示一个二维切片，即切片的每个元素也是一个int类型的切片。
+    // {} 是初始化表达式，这里表示初始化为空切片，即长度为0。
+    testCases := [][]int{
+        {1, 1, 2, 2, 3},
+        {0, 0, 1, 1, 1, 2, 2, 3, 3, 4},
+        {1, 2, 3},
+        {1, 1, 1},
+        {},
+    }
+    
+    for _, nums := range testCases {
+        fmt.Printf("原始数组: %v\n", nums)
+        k := removeDuplicates(nums)
+        fmt.Printf("去重后长度: %d\n", k)
+        fmt.Printf("前 %d 个元素: %v\n\n", k, nums[:k])
+    }
 }

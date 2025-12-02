@@ -1,87 +1,55 @@
+
+// 基本值类型
+
+// 考察：数组操作、进位处理
+
+// 题目：给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一
+
+// 给定一个表示 大整数 的整数数组 digits，其中 digits[i] 是整数的第 i 位数字。
+// 这些数字按从左到右，从最高位到最低位排列。这个大整数不包含任何前导 0。
+
+// 将大整数加 1，并返回结果的数字数组。
+
+// 示例: 
+
+// 输入：digits = [4,3,2,1]
+// 输出：[4,3,2,2]
+// 解释：输入数组表示数字 4321。
+// 加 1 后得到 4321 + 1 = 4322。
+// 因此，结果应该是 [4,3,2,2]。
+
 package main	
 import "fmt"	
 
-/*
-func main() {
-    // 仅声明
-    var a =[5]int{}
-    fmt.Println("a = ", a)
-
-    var marr [2]map[string]string
-    fmt.Println("marr = ", marr)
-    // map的零值是nil，虽然打印出来是非空值，但真实的值是nil
-    // marr[0]["test"] = "1"
-
-    // 声明以及初始化
-    var b [5]int = [5]int{1, 2, 3, 4, 5}
-    fmt.Println("b = ", b)
-
-    // 类型推导声明方式
-    var c = [5]string{}
-    fmt.Println("c = ", c)
-
-    d := [3]int{6, 8, 1}
-    fmt.Println("d = ", d)
-
-    // 使用 ... 代替数组长度
-    autoLen := [...]string{"auto1", "auto2", "auto3", "auto4"}
-    fmt.Println("autoLen = ", autoLen)
-
-    // 声明时初始化指定下标的元素值
-    positionInit := [5]string{1: "position1"}
-    fmt.Println("positionInit = ", positionInit)
-    
-    // 初始化时，元素个数不能超过数组声明的长度
-    //overLen := [2]int{1, 2, 3}
+func plusOne(digits []int) []int {
+    n := len(digits)        
+    // 从最后一位开始加1
+    for i := n - 1; i >= 0; i-- {
+        // 如果当前位小于9，直接加1并返回结果
+        if digits[i] < 9 {
+            digits[i]++
+            return digits
+        }
+        // 当前位是9，加1后变成0，循环会继续向前进位      
+        digits[i] = 0       
+    }
+    // 如果所有位都是9，说明进位后长度增加1
+    // return append([]int{1}, digits...) 也可以先初始化1，然后增加切片
+    newDigits := make([]int, n+1)
+    newDigits[0] = 1
+    return newDigits
 }
-*/
-
-/*
-func main() {
-    a := [5]int{5, 4, 3, 2, 1}
-
-    // 方式1，使用下标读取数据
-    element := a[2]
-    fmt.Println("element = ", element)
-
-    // 方式2，使用range遍历
-    for i, v := range a {
-        fmt.Println("index = ", i, "value = ", v)
-    }
-
-    for i := range a {
-        fmt.Println("only index, index = ", i)
-    }
-
-    // 读取数组长度
-    fmt.Println("len(a) = ", len(a))
-    // 使用下标，for循环遍历数组
-    for i := 0; i < len(a); i++ {
-        fmt.Println("use len(), index = ", i, "value = ", a[i])
-    }
-}
-	*/
 
 func main() {
-    // 二维数组
-    a := [3][2]int{
-        {0, 1},
-        {2, 3},
-        {4, 5},
+    testCases := [][]int{
+        {4, 3, 2, 1},   
+        {9, 9, 9},     
+        {4, 3, 2, 9},       
+        {0},             
+        {1, 9, 9},      
     }
-    fmt.Println("a = ", a)
-
-    // 三维数组
-    b := [3][3][2]int{
-        {{0, 1}, {2, 3}},
-        {{4, 5}, {6, 7}},
-        {{8, 9}, {10, 11}},
+    for _, digits := range testCases {
+        result := plusOne(digits)
+        fmt.Printf("输入: %v -> 输出: %v\n", digits, result)
     }
-    fmt.Println("b = ", b)
-
-    // 也可以省略各个位置的初始化,在后续代码中赋值
-    c := [3][3][3]int{}
-    c[2][2][1] = 5
-    c[1][2][1] = 4
-    fmt.Println("c = ", c)
 }
