@@ -19,11 +19,11 @@ func main() {
 	for i := 0; i < numGoroutines; i++ {	
 		go func() {
 			defer wg.Done()		
-			for j := 0; j < incrementsPerGoroutine; j++ {
-				mu.Lock()						
-				counter++ // 递增计数器
-				mu.Unlock()			
+			mu.Lock()
+			for j := 0; j < incrementsPerGoroutine; j++ {					
+				counter++ // 递增计数器	
 			}
+			mu.Unlock()
 		}()
 	}
 	wg.Wait()
