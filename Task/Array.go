@@ -49,7 +49,8 @@ func main() {
         {1, 9, 9},      
     }
     for _, digits := range testCases {
+        fmt.Printf("输入: %v\n", digits)
         result := plusOne(digits)
-        fmt.Printf("输入: %v -> 输出: %v\n", digits, result)
+        fmt.Printf("输出: %v\n", result)
     }
 }
