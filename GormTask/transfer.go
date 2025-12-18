@@ -49,24 +49,6 @@ func ConnectDB() *gorm.DB {
 
 // InitDB 初始化数据库和表
 func InitDB() *gorm.DB {
-	// db := ConnectDB()
-	
-	// // 设置连接池
-	// sqlDB, err := db.DB()
-	// if err != nil {
-	// 	log.Fatal("获取数据库连接失败:", err)
-	// }
-	// sqlDB.SetMaxIdleConns(10)
-	// sqlDB.SetMaxOpenConns(100)
-	
-	// // 自动迁移表结构
-	// err = db.AutoMigrate(&Account{}, &Transaction{})
-	// if err != nil {
-	// 	log.Fatal("数据库迁移失败:", err)
-	// }
-	
-	// log.Println("数据库初始化成功")
-	// return db
 	db := ConnectDB()
 	err := db.AutoMigrate(&Account{}, &Transaction{})
 	if err != nil {
