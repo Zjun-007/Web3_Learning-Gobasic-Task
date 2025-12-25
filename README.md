@@ -38,9 +38,9 @@ blog/
 │    └── logger.go        # 日志中间件
 ├── utils/
 │    ├── jwt.go           # JWT工具
-│    └── response.go      # 密码工具
+│    └── response.go      # 请求响应
 ├── routes/
-│    └── routes.go           # JWT工具
+│    └── routes.go
 ├── go.mod
 ├── go.sum
 └── README.md
@@ -300,3 +300,4 @@ JWT认证失败
 权限错误
 确保用户已登录
 检查是否是资源所有者
+
